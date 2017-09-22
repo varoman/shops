@@ -1,0 +1,30 @@
+<section class="container">
+  <header>
+    <h2 class="text-center">Shops</h2>
+  </header>
+  <div class="main">
+      {{#each model as |shop index|}}
+        <div class="row">
+          <div class="col-md-8">
+            {{#if vahlabi}}
+              {{input type="text" value=shop.name}}
+            {{else}}
+              {{#link-to "shops.shop" shop.name}}<span>{{ shop.name }}</span>{{/link-to}}
+            {{/if}}
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-danger pull-right" {{ action "removeShop" index}}>Delete</button>
+            <button class="btn btn-success pull-right"{{ action "editShop" index }}>Edit</button>
+          </div>
+        </div>
+      <hr>
+    {{/each}}
+      {{#if isAdding}}{{input type="text" 
+                              focus-out="enterShopName" 
+                              placeholder="Enter a New Shop Name" 
+                              value=newShopName}}
+      {{/if}}
+  </div>
+  <button class="lgBtn" {{ action "addShop" }}>Add Shops</button>
+</section>
+{{outlet}}
