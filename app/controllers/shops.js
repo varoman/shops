@@ -2,9 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 	isAdding: false,
-	isEditing: {0: false, 1: false, 2: false},
 	newShopName:'',
-	vahlabi:'',
+	clickTarget: NaN,
+	editableName: '',
 
 	actions: {
 		addShop: function(){
@@ -26,8 +26,15 @@ export default Ember.Controller.extend({
 		},
 
 		editShop: function(index) {
-			Ember.set(this.isEditing, index.toString(), true);
-			this.set('vahlabi', this.isEditing[index]);
+			let model = this.get('model');
+			this.set('clickTarget', index);
+			this.set('editableName', model[index].name)
+		},
+
+		editShopName: function () {
+			let model = this.get('model');
+			Ember.set(model[this.clickTarget], 'name', this.editableName);
+			this.set('clickTarget', NaN)
 		}
 	}
 });

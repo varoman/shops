@@ -6,8 +6,11 @@
       {{#each model as |shop index|}}
         <div class="row">
           <div class="col-md-8">
-            {{#if vahlabi}}
-              {{input type="text" value=shop.name}}
+            {{#if (eq clickTarget index)}}
+              {{input type="text" 
+                      value=editableName
+                      focus-out="editShopName"
+                      autofocus='true'}}
             {{else}}
               {{#link-to "shops.shop" shop.name}}<span>{{ shop.name }}</span>{{/link-to}}
             {{/if}}
