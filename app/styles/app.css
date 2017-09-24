@@ -4,7 +4,7 @@
 }
 
 .main {
-	border: 2px dotted gray;
+		border: 2px dotted gray;
     background-color: rgb(242, 242, 242);
     border-radius: 6px;
     padding: 30px;
@@ -36,4 +36,48 @@ section {
 
 a {
 	cursor: pointer;
+}
+
+.secondary {
+	border: 2px dotted gray;
+  background-color: rgb(242,242,242);
+  border-radius: 6px;
+}
+
+.rght {
+	border-right: 2px dotted grey!important;
+}
+
+.clmn {
+	padding: 20px!important;
+	text-align: center;
+	border-bottom: 2px dotted grey!important;
+}
+
+tr td {
+	text-align: center;
+}
+
+.tbl {
+	margin: 50px auto;
+}
+
+.rlt {
+	position: relative;
+}
+
+i {
+	position: absolute;
+	font-size: 23px!important;
+	cursor: pointer;
+}
+
+i:first-of-type {
+	right: -29px;
+	color: green;
+}
+
+i:last-of-type {
+	 right: -55px;
+	 color: red;
 }

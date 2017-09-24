@@ -12,7 +12,7 @@ const restoreSlug = (slugName) => {
 
 export default Ember.Route.extend({
 	model(params) {
-
+		if(!this.modelFor('shops')) return;
 		var shops = this.modelFor('shops');
 		return shops.find((item)=>{
 				return item.name.includes(restoreSlug(params.slug));
