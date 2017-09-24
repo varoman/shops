@@ -8,23 +8,54 @@
     </tr>
   </thead>
   <tbody>
+    {{#each model as |product index|}}
     <tr>
-      <td class="rght">Shoes</td>
-      <td class="rght">4</td>
+      <td class="rght">
+        {{#if (eq clickTarget index)}}
+          {{input type=text value=editableName focus-out="saveProduct"}}
+        {{else}}
+          <span>{{ product.name }}</span>
+        {{/if}}
+      </td>
+      <td class="rght">
+        {{#if (eq clickTarget index)}}
+          {{input type=number value=editableQ focus-out="saveProduct"}}
+        {{else}}
+          <span>{{ product.q }}</span>
+        {{/if}}
+      </td>
       <td class="rlt">
-        <span>$300</span>
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-        <i class="fa fa-trash-o" aria-hidden="true"></i></td>
+        {{#if (eq clickTarget index)}}
+          {{input type=number value=editablePrice focus-out="saveProduct"}}
+        {{else}}
+          <span>${{ product.price }}</span>
+        {{/if}}
+        <i {{ action "editProduct" index }} class="fa fa-pencil" aria-hidden="true"></i>
+        <i {{ action "removeProduct" index}} class="fa fa-trash-o" aria-hidden="true"></i>
+      </td>
     </tr>
+    {{/each}}
+    {{#if isAdding}}
+      <td class="rght">{{input type="text" focus-out="enterProduct" placeholder="Enter a New Product Name" value=newProduct.name autofocus='true'}}</td>
+      <td class="rght">{{input type="number" focus-out="enterProduct" placeholder="Enter a Product Quantity" value=newProduct.q }}</td>
+      <td class="rlt">{{input type="number" focus-out="enterProduct" placeholder="Enter a Product Price" value=newProduct.price }}</td>
+    {{/if}}
     <tr>
       <td class="rght"></td>
       <td class="rght"></td>
       <td>
         <span>Total Price</span>
-        <p>$3000</p>
+        <p>
+          $
+          {{#if total}}
+            {{total}}
+          {{else}}
+            {{ sum model }}
+          {{/if}}
+        </p>
       </td>
     </tr>
   </tbody>
   </table>
-
+<button class="adp" {{ action "addProduct" }}>Add Product</button>
 </div>

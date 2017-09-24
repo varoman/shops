@@ -44,7 +44,10 @@ export default Ember.Controller.extend({
 		},
 
 		editShopName() {
-			Ember.set(this.get('content').content[this.clickTarget]._data, 'name', this.editableName);
+			const self = this;
+			this.get('store').findRecord('shop', this.clickTarget).then(function(data) {
+  				data.set('name', self.editableName);
+			 });
 			this.set('clickTarget', NaN)
 		},
 
@@ -55,7 +58,7 @@ export default Ember.Controller.extend({
 				slugName = slugName.replace(' ', '-')
 			}
 			this.set('slugName', slugName);
-			this.transitionToRoute('shop', this.slugName)
+			this.transitionToRoute('shop', this.slugName);
 		}
 	}
 });

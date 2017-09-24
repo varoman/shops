@@ -12,7 +12,9 @@
                       focus-out="editShopName"
                       autofocus='true'}}
             {{else}}
-            <a {{action "goTo" index}}>{{ shop.name }}</a>
+            <a {{action "goTo" index}}>
+              {{#if shopName }} {{ shopName }} {{else}} {{ shop.name }} {{/if}}
+            </a>
             {{/if}}
           </div>
           <div class="col-md-4">
