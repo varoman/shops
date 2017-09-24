@@ -1,40 +1,50 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+	model() {
+		this.get('model')
+	},
 	isAdding: false,
 	newShopName:'',
 	clickTarget: NaN,
 	editableName: '',
+	slugName: '',
 
 	actions: {
-		addShop: function(){
+		addShop(){
 			this.set('isAdding', true);
 		},
 
-		enterShopName: function() {
-			let model = this.get('model');
+		enterShopName() {
 			if(this.newShopName){
-				model.pushObject({name: this.newShopName});
+				this.model.pushObject({name: this.newShopName});
 			}
 				this.set('newShopName', '');
 				this.set('isAdding', false);
 		},
 
-		removeShop: function(index) {
-			let model = this.get('model');
-			model.removeObject(model[index])
+		removeShop(index) {
+			this.model.removeObject(this.model[index])
 		},
 
-		editShop: function(index) {
-			let model = this.get('model');
+		editShop(index) {
 			this.set('clickTarget', index);
-			this.set('editableName', model[index].name)
+			this.set('editableName', this.model[index].name)
 		},
 
-		editShopName: function () {
-			let model = this.get('model');
-			Ember.set(model[this.clickTarget], 'name', this.editableName);
+		editShopName() {
+			Ember.set(this.model[this.clickTarget], 'name', this.editableName);
 			this.set('clickTarget', NaN)
+		},
+
+		goTo(index){
+			let slugName;
+			slugName = this.model[index].name;
+			if(slugName.includes(' ')){
+				slugName = slugName.replace(' ', '-')
+			}
+			this.set('slugName', slugName);
+			this.transitionToRoute('shop', this.slugName)
 		}
 	}
 });

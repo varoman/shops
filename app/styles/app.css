@@ -33,3 +33,7 @@ hr {
 section {
     position: relative;
 }
+
+a {
+	cursor: pointer;
+}

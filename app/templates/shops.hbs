@@ -7,12 +7,12 @@
         <div class="row">
           <div class="col-md-8">
             {{#if (eq clickTarget index)}}
-              {{input type="text" 
+              {{input type="text"
                       value=editableName
                       focus-out="editShopName"
                       autofocus='true'}}
             {{else}}
-              {{#link-to "shops.shop" shop.name}}<span>{{ shop.name }}</span>{{/link-to}}
+            <a {{action "goTo" index}}>{{ shop.name }}</a>
             {{/if}}
           </div>
           <div class="col-md-4">
@@ -22,10 +22,11 @@
         </div>
       <hr>
     {{/each}}
-      {{#if isAdding}}{{input type="text" 
-                              focus-out="enterShopName" 
-                              placeholder="Enter a New Shop Name" 
-                              value=newShopName}}
+      {{#if isAdding}}{{input type="text"
+                              focus-out="enterShopName"
+                              placeholder="Enter a New Shop Name"
+                              value=newShopName
+                              autofocus='true'}}
       {{/if}}
   </div>
   <button class="lgBtn" {{ action "addShop" }}>Add Shops</button>
