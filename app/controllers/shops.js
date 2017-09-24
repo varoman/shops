@@ -1,14 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-	model() {
-		this.get('model')
-	},
 	isAdding: false,
 	newShopName:'',
 	clickTarget: NaN,
 	editableName: '',
 	slugName: '',
+	id: 3,
 
 	actions: {
 		addShop(){
@@ -17,29 +15,42 @@ export default Ember.Controller.extend({
 
 		enterShopName() {
 			if(this.newShopName){
-				this.model.pushObject({name: this.newShopName});
+				this.get('store').push({
+					data: [
+						{
+							type: 'shop',
+							id: this.id,
+							attributes:{
+		              name: this.newShopName,
+		              goods: [
+		              ]
+		          }
+						}
+					]
+				});
+				this.id++;
 			}
 				this.set('newShopName', '');
 				this.set('isAdding', false);
 		},
 
 		removeShop(index) {
-			this.model.removeObject(this.model[index])
+			this.get('content').content.removeObject(this.get('content').content[index])
 		},
 
 		editShop(index) {
 			this.set('clickTarget', index);
-			this.set('editableName', this.model[index].name)
+			this.set('editableName', this.get('content').content[index]._data.name)
 		},
 
 		editShopName() {
-			Ember.set(this.model[this.clickTarget], 'name', this.editableName);
+			Ember.set(this.get('content').content[this.clickTarget]._data, 'name', this.editableName);
 			this.set('clickTarget', NaN)
 		},
 
 		goTo(index){
 			let slugName;
-			slugName = this.model[index].name;
+			slugName = this.get('content').content[index]._data.name;
 			if(slugName.includes(' ')){
 				slugName = slugName.replace(' ', '-')
 			}
